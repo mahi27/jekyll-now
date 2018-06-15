@@ -3,7 +3,7 @@ layout: post
 title: How I used Deep Learning to solve CAPTCHAs
 ---
 <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-<figure><img src="images/cover.jpg" align = "middle"><figcaption style = "font-size:7px;"> Source: www.pinterest.co.uk/pin/513691901231880916 </figcaption></figure>
+<figure><img src="images/cover.jpg" align = "middle"><figcaption style = "font-size:7px;"> Source:https://goo.gl/PXFQma</figcaption></figure>
 <h2><span style="text-decoration: underline;"><strong>Introduction</strong></span></h2>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CAPTCHA stands&ldquo; for "Completely Automated Public Turing test to tell Computers and Humans Apart". They were designed to prevent computers from automatically filling out forms by verifying that you are a real person. With the rise of deep learning and computer vision, machines can now solve CAPTCHAs easily. In 2014, a Google analysis found that artificial intelligence could crack even the most complex CAPTCHA and reCAPTCHA images with 99.8 percent accuracy, rendering the programs useless as security devices. In their place, Google unveiled the now-familiar “No CAPTCHA reCAPTCHA” system but most websites still use CAPTCHAs.</p>
 <p>In this post, we&rsquo;ll be looking at how we can use a deep learning model to solve CAPTCHAs.</p>
@@ -13,12 +13,12 @@ title: How I used Deep Learning to solve CAPTCHAs
 <p>Input ---- Conv ---- RELU ---- Pooling --- Conv --- RELU ---- Pooling -- Fully Connected --- Output </p>
 <p>As you can see, there are four important operations - Convolution, RELU, Pooling (Sub-Sampling), and Fully Connected. 
 Before looking at each of them in detail, let us first understand how image is represented in a system</p>
-<figure><img src="images/8-gif.gif"><figcaption>Source:https://medium.com/@ageitgey/machine-learning-is-fun-part-3-deep-learning-and-convolutional-neural-networks-f40359318721</figcaption></figure>
+<figure><img src="images/8-gif.gif"><figcaption>Source:https://goo.gl/nC1roU</figcaption></figure>
 <p> Each image (from a standard camera) has three channels - red, green, blue. Each channel has matrix of pixel values ranging from 0 -255. These three are stacked upon one another. So an image of size 20x20 is represented as an array of size 20x20x3 
 When converted to grayscale, the image will have only one channel.</p>
 <h4><strong> Now, the Convolution </strong></h4>
 <p>Convolution layer is a feature identifier. Imagine it as a flash light that is shining on the image and moving, starting from top left. The area the flash light is covering is called filter( or kernel). Filter will also be a matrix of numbers depending on the feature to be identified. In the top left part of the image, the filter does element wise multiplication with the values in the image in its area and sums up the values. Now the filter slides by let’s say 1 unit ( called stride) and repeats the same process. This continues until it reaches the bottom right of the image. The matrix of values formed by this process is called ‘Activation Map’ or ‘ Feature Map’</p>
-<figure><img src="images/convolution.gif"><figcaption>Source:https://hackernoon.com/visualizing-parts-of-convolutional-neural-networks-using-keras-and-cats-5cc01b214e59</figcaption></figure>
+<figure><img src="images/convolution.gif"><figcaption>Source:https://goo.gl/h7xU33</figcaption></figure>
 <p>From a higher level, let’s say our filter identifies lines. Then the resulting feature map will consist of higher values in the area where there is a line due to element-wise multiplication and 0 where there are no lines.</p>
 <h4><strong>RELU</strong></h4>
 <p>RELU stands for Rectifies Linear Unit. It is a non-linear operation done after every Convolution layer. RELU replaces all negative pixel values in the feature map by zero. The purpose of ReLU is to introduce non-linearity in our ConvNet.</p>
