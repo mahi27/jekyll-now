@@ -3,7 +3,7 @@ layout: post
 title: How I used Deep Learning to solve CAPTCHAs
 ---
 <link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
-<figure><img src="images/cover.jpg" align = "middle"><figcaption style = "font-size:1em;"> Source: www.pinterest.co.uk/pin/513691901231880916 </figcaption></figure>
+<figure><img src="images/cover.jpg" align = "middle"><figcaption style = "font-size:7px;"> Source: www.pinterest.co.uk/pin/513691901231880916 </figcaption></figure>
 <h2><span style="text-decoration: underline;"><strong>Introduction</strong></span></h2>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CAPTCHA stands&ldquo; for "Completely Automated Public Turing test to tell Computers and Humans Apart". They were designed to prevent computers from automatically filling out forms by verifying that you are a real person. With the rise of deep learning and computer vision, machines can now solve CAPTCHAs easily. In 2014, a Google analysis found that artificial intelligence could crack even the most complex CAPTCHA and reCAPTCHA images with 99.8 percent accuracy, rendering the programs useless as security devices. In their place, Google unveiled the now-familiar “No CAPTCHA reCAPTCHA” system but most websites still use CAPTCHAs.</p>
 <p>In this post, we&rsquo;ll be looking at how we can use a deep learning model to solve CAPTCHAs.</p>
