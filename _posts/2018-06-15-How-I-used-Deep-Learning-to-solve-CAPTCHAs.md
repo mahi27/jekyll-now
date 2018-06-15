@@ -31,14 +31,14 @@ This layer helps in controlling overfitting as the number of parameters and comp
 <h2><span style="text-decoration: underline;"><strong>Generating CAPTCHAs</strong></span></h2>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To train any machine learning system, we need training data. For our problem, we need atleast 10000 CAPTCHAs. I have used the Python library, Claptcha and modified its function to suit my needs. Using a simple for loop, I generated 10000 CAPTCHA images with the captcha text as file name</p>
 <img src="images/captchas.jpg" align = "middle">
-<p>You can dowload the script here</p>
+<p>You can dowload the script<a href="https://github.com/mahi27/mahi27.github.io/blob/master/Scripts/gencap.py"> here</a></p>
 <h2><span style="text-decoration: underline;"><strong>Dataset Creation</strong></span></h2>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Now that we have the images, we can train the model. Wait! Wouldn’t it be simpler to teach 26 alphabets than teach 10000 texts directly? Yes </p>
 <p>We will split the CAPTCHA image into individual letters and train the system to identify individual letter and then join them into one string.
 OpenCV has a function findContours to identify boundaries around continuous regions. Using this function, image can be split into individual letters
 I have written a python script to extract letters and group all letters into folders. The output looks like this</p>
 <img src="images/letters.jpg" align = "middle">
-<p>You can download the script here</p>
+<p>You can download the script<a href="https://github.com/mahi27/mahi27.github.io/blob/master/Scripts/extractLetters.py"> here</a></p>
 <h2><span style="text-decoration: underline;"><strong>Training the model</strong></span></h2>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I have used the following CNN architecture through keras library in Python to train the model</p>
 <p>Input -- Conv -- RELU -- Pooling -- Conv -- RELU -- Pooling -- Fully Connected -- Fully Connected -- Output </p>
