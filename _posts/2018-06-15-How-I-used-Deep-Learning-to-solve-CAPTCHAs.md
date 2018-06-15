@@ -50,11 +50,3 @@ Well, first all filters and weights are initialized with random values. The netw
 <p>For testing, I have generated 2000 more CAPTCHAs and tested using the model. The accuracy was around 98% !</p>
 <h2><span style="text-decoration: underline;"><strong>Try it out!</strong></span></h2>
 <p>I’m currently working on the app to generate and predict the CAPTCHAs using the model. I will update this section soon.</p>
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-80811190-1', 'auto');
-  ga('send', 'pageview');
-</script>
