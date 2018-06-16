@@ -10,7 +10,7 @@ title: How I used Deep Learning to solve CAPTCHAs
 <h2><span style="text-decoration: underline;"><strong>Deep Learning Approach</strong></span></h2>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The recent surge of interest in deep learning is due to the increasing performance with the size of dataset unlike the traditional machine learning algorithms whose performance becomes constant after a point. Convolutional Neural Networks (CNN) are the most popular deep learning architecture. It is the go-to-model for every image related problem. </p>
 <p>A classic CNN would be like this:</p>
-<p>Input -->Conv -->RELU -->Pooling -->Conv -->RELU -->Pooling -->Fully Connected -->Output </p>
+<p>Input-->Conv-->RELU-->Pool-->Conv-->RELU-->Pool-->FullyConnected-->Output </p>
 <p>As you can see, there are four important operations - Convolution, RELU, Pooling (Sub-Sampling), and Fully Connected. 
 Before looking at each of them in detail, let us first understand how image is represented in a computer</p>
 <figure><img src="images/8-gif.gif" align= "middle"><figcaption style = "font-size:9px;">Source:https://goo.gl/nC1roU</figcaption></figure>
@@ -40,7 +40,7 @@ OpenCV has a function findContours to identify boundaries around continuous regi
 <p>You can download the script<a href="https://github.com/mahi27/mahi27.github.io/blob/master/Scripts/extractLetters.py"> here</a></p>
 <h2><span style="text-decoration: underline;"><strong>Training the model</strong></span></h2>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I have used the following CNN architecture through keras library in Python to train the model</p>
-<p>Input -- Conv -- RELU -- Pooling -- Conv -- RELU -- Pooling -- Fully Connected -- Fully Connected -- Output </p>
+<p>Input-->Conv-->RELU-->Pooling-->Conv-->RELU-->Pooling-->FullyConnected-->Fully Connected-->Output </p>
 <p>How does training happen?
 Well, first all filters and weights are initialized with random values. The network takes an image as input and gives an output.This is forward propagation. Since weights are random, output is also random. Now, error at the output layer is calculated. Now using back propagation, gradients of error are calculated and weights are updated to minimize the error. The same process is repeated for all the images in the dataset.</p>
 <p>After 10 epochs, my model has given a validation accuracy of 98.99%!!</p>
