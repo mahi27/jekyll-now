@@ -31,7 +31,7 @@ images:
 <figure><img src="images/backprop.png" align = "middle"><figcaption style = "font-size:9px;"> Source:https://goo.gl/Cs5r3d</figcaption></figure>
 <p>ANN is called a black box method as studying its structure won't give any understanding on the structure of the function being approximated. Watch <a href="https://www.youtube.com/watch?v=x_Eamf8MHwU" target="_blank">this</a> amazing video to understand more about back propagation.</p>
 <h2><span style="text-decoration: underline;"><strong>Dataset</strong></span></h2>
-<p>The <a href = "http://yann.lecun.com/exdb/mnist/" target="_blank">MNIST database</a> of hand-written digits is used for building the model. It has 60,000 images for taining and 10,000 images for testing. You can also download hand-written images from kaggle's Digit Recognizer competition.</p>
+<p>The <a href = "http://yann.lecun.com/exdb/mnist/" target="_blank">MNIST database</a> of hand-written digits is used for building the model. It has 60,000 images for training and 10,000 images for testing. You can also download hand-written images from kaggle's Digit Recognizer competition.</p>
 <h2><span style="text-decoration: underline;"><strong>Feature Extraction and Training</strong></span></h2>
 <p>I have inverted the images and centered the digits in the image using bounding box. These cropped out digit images were all resized to 28X28. Cell size of 7X7 is used to extract hog features. This feature vector is given as input to a simple feed-forward neural network with two hidden layers. After a 100 iterations, with a batch size of 32, the resulting accuracy was close to 99%. </p>
 <h2><span style="text-decoration: underline;"><strong>Testing</strong></span></h2>
