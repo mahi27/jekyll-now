@@ -4,9 +4,8 @@ title: About
 permalink: /about/
 ---
 
-I'm passionate about applying machine learning to drive innovation, especially in the areas of Construction and Healthcare.
-Check the resume tab for a brief introduction about me.
-<p>Contact me for further information or if you’re looking to collaborate on future projects. I'm always open to new opportunities</p>
+Hola! Bonjour! Hello! Namaste!
+I’m Mahitha, currently pursuing my Masters in Business Analytics at University of Cincinnati.
+I'm passionate about applying machine learning to drive innovation and have been living the dream for two years now. I can build ML models both in R and Python, develop dashboards and amazing visualizations using R-shiny and JS libraries, tell stories using Tableau and manage data using SQL. Currently, I’m picking up other tools like SAS and Hadoop.
 
-### Contact me
-[mahitasree@gmail.com](mailto:mahitasree@gmail.com)
+If you’re looking to collaborate on future projects, willing to hire me (part-time/full-time), give feedback or need further information, feel free to drop in a mail at mahitasree@gmail.com. I'm always open to new opportunities
