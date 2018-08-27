@@ -1,0 +1,68 @@
+---
+layout: post
+title: Audio Data Classification in Python - Part 1
+excerpt: Lub....dub...lub...dub...lub...dub
+permalink: /Audio-Data-Classification-in-Python-Part-1
+published: true
+images:
+  - url: /images/audio3_part1/app3_gif.gif
+---
+<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+
+
+<h2><span style="text-decoration: underline;"><strong>Introduction</strong></span></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Hey all! It's been a while I wrote something here. My last two posts were on using images for training, So I decided to get my hands on audio processing now.</p>
+<p>A common AI use case that comes to mind when discussing about audio processing is speech-to-text recognition. Not just this, there are various use cases where analysis of audio data can unveil valuable insights.Some practical use cases are, </p>
+<ul>
+<li>Auto tagging music </li>
+<li>Machine failure prediction from sounds made by devices</li>
+<li>Music recommendation </li>
+<li>Music Transcription</li>
+<li>Analog audio emulation </li>
+</ul>
+<p>Here are some of the interesting reads I found while researching about audio analysis</p>
+<ul>
+<li> <a href = "https://deepmind.com/blog/wavenet-generative-model-raw-audio/" target="_blank">Deepmind's WaveNet </a></li>
+<li> <a href= "https://www.fastcompany.com/3067904/ai-for-matching-images-with-spoken-word-gets-a-boost-from-mit" target="_blank">Matching images from spoken words</a></li>
+<li> <a href="https://qz.com/1011641/mit-and-google-researchers-have-made-ai-that-can-link-sound-sight-and-text-to-understand-the-world/" target="_blank">Linking sound, sight and text </a></li>
+<li> <a href="http://news.mit.edu/2016/artificial-intelligence-produces-realistic-sounds-0613" target="_blank">AI Produces realistic sounds</a></li>
+<li><a href="https://www.toptal.com/algorithms/shazam-it-music-processing-fingerprinting-and-recognition" target="_blank">Music Recognition in Shazam </a></li>
+</ul>
+
+
+<h2><span style="text-decoration: underline;"><strong>Data representation</strong></span></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Unlike images, where quite a lot of information can be gathered, very little information can be obtained from audio at a point of time. It is more temporal dependent. Sounds we hear are pressure waves in air. The shape of these wave forms are represented directly on analog recording media such as phonograph and cassette tapes (To 20s kids - yes, they did exist ).</p>
+<figure><img src="images/audio3_part1/physicalrecording.jpg" align = "middle"> <figcaption style = "font-size:10px;">Waveform on physical recording</figcaption></figure>
+<p>Whereas, in digital recording, this waveform is sampled at evenly spaced time points (sampling rate) with each point representing an exact number. These are generally stored in wav, mp3 or WMA format.</p>
+<figure><img src="images/audio3_part1/digitalrecording.jpg" align = "middle"> <figcaption style = "font-size:10px;">Waveform on physical recording</figcaption></figure>
+<p>Audio can be represented in many ways for processing, which one is best depends on the use case. Previously, extracted features like spectral centroid, higher order statistics, zero crossing statistics, fundamental frequency etc were key components for audio analysis. This trend has changed with the advancements in algorithms. Now a days, people let the network determine the features required. Representing audio as MFCCs (Mel Frequency Cepstral Coefficients) have a long history in speech classification. Frequency domain ( x-axis is frequency) and time domain (x-axis is time) are other ways through which audio can be represented. The frequency domain is much more useful and is widely used in examining audio signals.</p>
+<h2><span style="text-decoration: underline;"><strong>Problem Definition</strong></span></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; According to Centers for Disease Control and Prevention, 1 in 4 deaths in the United States is due to heart disease. Out of 610,000 people that die of heart disease, more than 370,000 die of coronary heart disease (CHD). Any method which can predict the risk of CHD accurately will have a significant impact in the healthcare industry. This post attempts to do exactly the same. In this post, we will be looking at classification of heart beat sounds into three categories using the data collected in clinical trails using a digital stethoscope.</p>
+
+
+<h2><span style="text-decoration: underline;"><strong>Dataset</strong></span></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; You can download data from <a href="https://www.kaggle.com/kinguistics/heartbeat-sounds" target="_blank"> Kaggle datasets.</a> I chose set B for the analysis. The dataset consists of audio files and their respective labels namely - normal, murmur and extrasystole.</p>
+<p> Let's understand what the heart beat sounds are and how they are distinguished.
+The heart has four chambers -- two upper chambers called atria and two lower chambers called ventricles. The sino-atrial node in the right atrium, discharges electric current causing the valves to contract. The heart valves temporarily close to permit blood flow in only one direction. The 'lub-dub' sounds of the heart are produced when the heart valves close.  <br>
+<strong>Normal:</strong> Normal refers to healthy heart sounds. Usually, the time from 'lub' to 'dub' is shorter than the time from 'dub' to next 'lub'. Normal resting heart rate is between 60 and 100 beats per minute <br>
+<strong>Murmur:</strong> Sometimes, the right and left ventricles contract at different times causing turbulent blood flow through the valves. This results in 'blowing, whooshing, or rasping' sounds' called murmurs between the 'lub' and 'dub' sounds. Not all murmurs indicate disorders. They are further characterized by grades which are out of scope for this post. <br>
+<strong>Extrasystole:</strong> These are extra heart sounds for e.g: lub-lub-dub or lub-dub-dub, which occur when there is electric dicharge from somewhere other than sino-atrial node in the heart.</p>
+
+
+<h2><span style="text-decoration: underline;"><strong>Data Exploration</strong></span></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Let's take a look at the csv file. The training data consists of 461 audio files with different durations. There are three classes and no missing data.</p>
+<figure><img src="images/audio3_part1/csv_exp.PNG" align = "middle"></figure>
+<p>Out of 461 files, 320 files are normal heart beats, 95 murmur and 46 extrasystole sounds. The data is clearly imbalanced.
+<figure><img src="images/audio3_part1/proportions.PNG" align = "middle"></figure>
+
+<p>Let's write a function to visualize how the three categories of heart beat differ. This function enable to view as well as listen to the audio file, while giving information on metadata.</p>
+<figure><img src="images/audio3_part1/audio_func.PNG" align = "middle"></figure>
+<p>Let's 'look' at the audio now!</p>
+<figure><img src="images/audio3_part1/normal.PNG" align = "middle"> <figcaption style = "font-size:15px;">Normal audio</figcaption></figure>
+<figure><img src="images/audio3_part1/murmur.PNG" align = "middle"> <figcaption style = "font-size:15px;">Murmur audio</figcaption></figure>
+<figure><img src="images/audio3_part1/extrasystole.PNG" align = "middle"> <figcaption style = "font-size:15px;">Extrasystole audio</figcaption></figure>
+
+<p> Seems like the patterns are easy to distinguish. But wait! What about the noisy data? Let's take a look </p>
+<figure><img src="images/audio3_part1/noisynormal.PNG" align = "middle"> <figcaption style = "font-size:15px;">Noisy normal</figcaption></figure>
+<p>The noisy audio files should be denoised. We will look at denoising audio files and building a classification model in the next parts.<br>
+The csv file used in this post and the Ipython notebook can be downloaded from <a href = "Scripts/audio3_part1/" target = "_blank">here</a>
