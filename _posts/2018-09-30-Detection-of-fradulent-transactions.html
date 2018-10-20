@@ -52,10 +52,10 @@ images:
 <p>But, it doesn’t make sense for the target variable to take values other than 0 or 1. T fix this, a sigmoid function or a logistic function is applied to the regression equation. </p>
 <figure><img src="images/creditcard_fraud/logit.PNG" align = "middle"> <figcaption style = "font-size:15px;"></figcaption></figure>
 <p>f(y) gives the probability that the output is 1. The plot of sigmoid function looks like this: </p>
-<figure><img src="images/creditcard_fraud/sigmoid.PNG" align = "middle"> <figcaption style = "font-size:15px;">Sigmoid Function</figcaption></figure>
+<figure><img src="images/creditcard_fraud/sigmoid.png" align = "middle"> <figcaption style = "font-size:15px;">Sigmoid Function</figcaption></figure>
 <p>How is θ calculated?</p>
 <p> We start with random parameters to initialize the cost function and keep updating the cost function until it reaches the minimum. Cost function and the update rule are given by: </p>
-<figure><img src="images/creditcard_fraud/cost_function.PNG" align = "middle"> <figcaption style = "font-size:15px;"></figcaption></figure>
+<figure><img src="images/creditcard_fraud/cost_function.png" align = "middle"> <figcaption style = "font-size:15px;"></figcaption></figure>
 <figure><img src="images/creditcard_fraud/Capture.PNG" align = "middle"> <figcaption style = "font-size:15px;"></figcaption></figure>
 <p> Math behind these functions can be read at <a href = http://cs229.stanford.edu/notes/cs229-notes1.pdf> Andrew Ng's CS 229 Lecture Notes</a>.</p>
 <p>Assumptions for Logistic Regression: </p>
@@ -77,17 +77,38 @@ images:
 <h2><span style="text-decoration: underline;"><strong>Preparing the Data</strong></span></h2>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp Now that we understood the algorithm, we will prepare our data for the model. Load the required libraries and read the csv file. You can download the dataset from <a href = "">here</a>
 </p>
-<code style="background-color: #eee; border: 1px solid #999; display: block; padding: 20px;">
-import pandas as pd <br>
-import numpy as np <br>
-from sklearn import preprocessing <br>
-import matplotlib.pyplot as plt <br>
-from sklearn.linear_model import LogisticRegression <br>
-from sklearn.cross_validation import train_test_split <br>
-import seaborn as sns <br>
-from imblearn.over_sampling import SMOTE <br>
-</code>
+<img src="images/creditcard_fraud/code1.PNG" align = "middle">
+<img src="images/creditcard_fraud/code2.PNG" align = "middle">
+<p> As discussed before there are 28 Principal components ( V1 to V28), Time, Amount and Class. Class is our response variable. There are 2,84,807 rows and 31 columns. There are no missing values.</p>
+<p> Let’s look at the proportion of classes </p>
+<img src="images/creditcard_fraud/code3.PNG" align = "middle">
+<p>Woah! 284315 out of 284807 observations (99.8%) of the data is of class ‘Not Fraud’. Even if we predict all the transactions as not fraudulent, we will have a 99.8% accuracy and this is why accuracy is not a good measure in classification problems.</p>
+<p>Let's look at the distribution of 'Amount' and 'Time' predictors</p>
+<img src="images/creditcard_fraud/code4.PNG" align = "middle">
+<p>The distribution of transaction amount shows that it is skewed. We will apply a log transformation to correct it</p>
+<img src="images/creditcard_fraud/code5.PNG" align = "middle">
+<img src="images/creditcard_fraud/code6.PNG" align = "middle">
+<p>Transaction time distribution shows that most transactions happened during day time. Since transaction time is on different scale as compared to other features and the function for logistic regression in this post will be using regularization, we need to scale the time variable.</p>
+<img src="images/creditcard_fraud/code7.PNG" align = "middle">
+<p>We will now split for dataset for training and testing in the ratio 70:30. Our data is highly imbalanced. If we use the data for training the model, it will be biased towards the ‘0’ class. To account for this, we need to oversample the class ‘1’ observations so that a balanced dataset is created for training.</p>
+<p> We will use SMOTE to create a balanced dataset. SMOTE stands for Synthetic Minority Over-sampling Technique. To put simply, SMOTE does not create duplicate observations, it creates synthetic samples by selecting similar records and altering the columns one by one by a random amount within the difference between the adjacent records. </p>
+<img src="images/creditcard_fraud/code8.PNG" align = "middle">
+<p>Ahaa! There’s our balanced set </p>
+<p>Do we require all the features in our dataset. We don’t know! Let’s run a recursive feature elimination (RFE) and use only the best features in our model. RFE repeatedly constructs a model by choosing the best or worst performing feature, setting aside and continuing the process with the rest of the features. Features are ranked according to when they are eliminated.</p>
+<img src="images/creditcard_fraud/code9.PNG" align = "middle">
+<p>I have run the logit model using statsmodel package to get the p values for the selected features. All of them are zero indicating that the features selected are significant. Let’s build the model with 15 features selected by RFE </p>
+<img src="images/creditcard_fraud/code10.PNG" align = "middle">
 
-<h2><span style="text-decoration: underline;"><strong>Preparing the data</strong></span></h2>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-
+<h2><span style="text-decoration: underline;"><strong>Training the model</strong></span></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp We have built a logistic regression model with the default parameter values. Let’s test it</p>
+<img src="images/creditcard_fraud/code11.PNG" align = "middle">
+<p>We have 2213 observations which are not fraud but are classified as fraudulent and 13 observations which are fraud and classified as ‘Not fraud’.  Our aim is to improve the model so as to decrease the number of wrongly classified observations especially the fraudulent ones.</p>
+<p>We can improve the model by changing the ‘C’ value and the regularization method. GridSearchCV function will search among the all possible combinations of parameters given and scores using validation data and outputs the best parameters. </p>
+<img src="images/creditcard_fraud/code12.PNG" align = "middle">
+<p>Using the grid search, we get C = 0.01 and “l2” as the best regularization method. Let’s re-train the model using these parameters. </p>
+<img src="images/creditcard_fraud/code13.PNG" align = "middle">
+<h2><span style="text-decoration: underline;"><strong>Testing</strong></span></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp On using our new model on test data, we observe that the number of wrongly classified ‘0’ have decreased but the ‘1’ remain the same.</p>
+<img src="images/creditcard_fraud/code14.PNG" align = "middle">
+<img src="images/creditcard_fraud/code15.PNG" align = "middle">
+<img src="images/creditcard_fraud/code16.PNG" align = "middle">
