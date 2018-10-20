@@ -1,0 +1,93 @@
+---
+layout: post
+title: Detection of Fradulent Transactions
+excerpt: 
+permalink: /Detection-of-Fradulent-Transactions
+draft: true
+images:
+  - url: /images/creditcard_fraud/cardthief.gif
+---
+<link href="https://afeld.github.io/emoji-css/emoji.css" rel="stylesheet">
+
+
+<h2><span style="text-decoration: underline;"><strong>Introduction</strong></span></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Banking and financial institutions are facing severe challenges due to fraudulent transactions. 2015 alone saw a $21.84 billion fraud losses in USA on credit, debit and prepaid cards. Bloomberg predicts that this could grow by 45% by 2020. Traditional approach of using rules and authenticating transactions is no longer a viable method due to the plethora of payment channels and adept criminals. Using machine learning for fraud detection is no longer a trend, it’s a necessity. Machine learning enables to detect and recognize patterns on customer’s purchase history efficiently even on larger datasets. </p>
+<p>In this post, we will be looking at implementing a logistic regression model for detecting fraudulent credit card transactions. 
+</p>
+
+
+<h2><span style="text-decoration: underline;"><strong>Dataset</strong></span></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The dataset used in this post is from <a href = "https://www.kaggle.com/mlg-ulb/creditcardfraud/home">Kaggle</a>. It consists of credit card transactions of European cardholders that occurred in two days. Due to confidentiality issues, the original features were transformed to principal components. The features given in the dataset consists of 28 principal components along with time and amount. Time is the time difference in seconds between each transaction and the first one in the dataset. Amount refers to the transaction amount. The response variable, ‘Class’ is a binary variable indicating 1 for fraudulent transaction and 0 otherwise.
+</p>
+
+<h2><span style="text-decoration: underline;"><strong>Approach</strong></span></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp In ML terms, this is a classification problem. Some common types of classification algorithms are:
+<ul>
+<li>Logistic Regression</li>
+<li>Naive Bayes</li>
+<li>Support Vector Machines</li>
+<li>Decision Trees</li>
+<li>Boosted Trees </li>
+<li>Random Forests</li>
+<li>Neural Networks </li>
+</ul>
+</p>
+<p>In this post we will implement a logistic regression model but before that it is important to understand principal components and how are they representing the original features.</p>
+<h4>Principal Components </h4>
+<p>Let’s say our data has 100 features to predict a variable. Instead of using every single variable in the model, we might drop some variables and use only the features which we think will best predict the variable. The disadvantage is that we will lose the information represented by the dropped features. Principal Component Analysis (PCA) is a technique for feature extraction, it combines the features in a way such that we can drop variables while retaining the important information of all the features.
+</p>
+<p>For example, we have a data like this </p>
+<figure><img src="images/creditcard_fraud/pca.PNG" align = "middle"> <figcaption style = "font-size:15px;"></figcaption></figure>
+<p>Instead of our traditional X-axis, let’s say we will make the blue line as our axis, then we can represent 90% of the points using only one dimension. If our data has n features and using principal component analysis we get n new features. These n features are ordered in the percentage of variance in target variable explained by them. For eg, The 1st principal component explains 90% of the variance, 2nd principal component explains 94% of the variance cumulatively………nth principal component explains 100% of the variance in target variable cumulatively.</p>
+<p>For a more detailed explanation, see these: </p>
+<p><a href = "http://setosa.io/ev/principal-component-analysis/">Setosa.ai - PCA Explained visually </a></p>
+<p><a href = "https://towardsdatascience.com/a-one-stop-shop-for-principal-component-analysis-5582fb7e0a9c">A One-Stop Shop for Principal Component Analysis</a></p>
+<p>Now that we understood what principle components are, we will understand how logistic regression works.</p>
+<h4>Logistic Regression </h4>
+<p>Logistic regression is a type of classification algorithm which is being used since early twentieth century.  It tries to find relationship between the features and probability of a particular outcome. Logistics regression is further divided into various sub-types – binary, multinomial, ordinal; depending upon the type of target variable. In this post, we will build a binary logistic model as we are looking whether a transaction is ‘Fraud’ or ‘Not Fraud’.
+</p>
+<p>Why are we predicting the probability instead of just 0 or 1?</p>
+<p>If we predict the outcome using regression, this is how our line would look and would perform poorly in most of the cases. The outcome would be modeled as, </p>
+<figure><img src="images/creditcard_fraud/linearequation.PNG" align = "middle"> <figcaption style = "font-size:15px;"></figcaption></figure>
+<p>But, it doesn’t make sense for the target variable to take values other than 0 or 1. T fix this, a sigmoid function or a logistic function is applied to the regression equation. </p>
+<figure><img src="images/creditcard_fraud/logit.PNG" align = "middle"> <figcaption style = "font-size:15px;"></figcaption></figure>
+<p>f(y) gives the probability that the output is 1. The plot of sigmoid function looks like this: </p>
+<figure><img src="images/creditcard_fraud/sigmoid.PNG" align = "middle"> <figcaption style = "font-size:15px;">Sigmoid Function</figcaption></figure>
+<p>How is θ calculated?</p>
+<p> We start with random parameters to initialize the cost function and keep updating the cost function until it reaches the minimum. Cost function and the update rule are given by: </p>
+<figure><img src="images/creditcard_fraud/cost_function.PNG" align = "middle"> <figcaption style = "font-size:15px;"></figcaption></figure>
+<figure><img src="images/creditcard_fraud/Capture.PNG" align = "middle"> <figcaption style = "font-size:15px;"></figcaption></figure>
+<p> Math behind these functions can be read at <a href = http://cs229.stanford.edu/notes/cs229-notes1.pdf> Andrew Ng's CS 229 Lecture Notes</a>.</p>
+<p>Assumptions for Logistic Regression: </p>
+<ul>
+<li>Observations are independent of each other</li>
+<li>There is little or no multicollinearity among the independent variables </li>
+<li>Independent variables are linearly related to the log odds </li>
+</ul>
+<p>Evaluation Metrics for Logistic Regression:</p>
+<ul>
+<li>AIC</li>
+<li>Null Deviance and Residual Deviance</li>
+<li>Confusion Matrix</li>
+<li>ROC Curve</li>
+</ul>
+<p>Why isn’t the default accuracy used as the evaluation metric for logistic regression? </p>
+<p>Accuracy is just the proportion of correctly classified observations. If the dataset is imbalanced with 95% of the cases being ‘0’ and 5% as ‘1’, even if I predict all cases as ‘0’, I will have a 95% accuracy. But often we are more interested in measuring the performance on the rare class, and accuracy doesn’t really denote the efficacy of the classifier.</p>
+
+<h2><span style="text-decoration: underline;"><strong>Preparing the Data</strong></span></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp Now that we understood the algorithm, we will prepare our data for the model. Load the required libraries and read the csv file. You can download the dataset from <a href = "">here</a>
+</p>
+<code>
+import pandas as pd
+import numpy as np
+from sklearn import preprocessing
+import matplotlib.pyplot as plt 
+from sklearn.linear_model import LogisticRegression
+from sklearn.cross_validation import train_test_split
+import seaborn as sns
+from imblearn.over_sampling import SMOTE
+</code>
+
+<h2><span style="text-decoration: underline;"><strong>Preparing the data</strong></span></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+
