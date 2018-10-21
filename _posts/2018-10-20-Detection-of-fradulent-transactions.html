@@ -81,8 +81,9 @@ images:
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp Now that we understood how the algorithm works, we will prepare our data for training. Load the required libraries and read the csv file. You can download the dataset from <a href = "https://www.kaggle.com/mlg-ulb/creditcardfraud" target = "_blank">here</a>
 </p>
 <img src="images/creditcard_fraud/code1.PNG">
+<p> As discussed before there are 28 Principal components ( V1 to V28), Time, Amount and Class. Class is our response variable. There are 284,807 rows and 31 columns.</p>
 <img src="images/creditcard_fraud/code2.PNG">
-<p> As discussed before there are 28 Principal components ( V1 to V28), Time, Amount and Class. Class is our response variable. There are 284,807 rows and 31 columns. There are no missing values.</p>
+<p>There are no missing values in the dataset.</p>
 <p> Let’s look at the proportion of classes </p>
 <img src="images/creditcard_fraud/code3.PNG">
 <p>Woah! 284,315 out of 284,807 observations (99.8%) of the data is of class ‘Not Fraud’. Even if we predict all the transactions as not fraudulent, we will have a 99.8% accuracy and this is why accuracy is not a good measure in classification problems.</p>
