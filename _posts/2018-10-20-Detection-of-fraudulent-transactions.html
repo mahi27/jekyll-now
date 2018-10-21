@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Detection of Fradulent Transactions
+title: Detection of Fraudulent Transactions
 excerpt: It takes a machine to catch a thief
-permalink: /Detection-of-Fradulent-Transactions
+permalink: /Detection-of-Fraudulent-Transactions
 publish: true
 images:
   - url: /images/creditcard_fraud/cardthief.gif
@@ -20,7 +20,7 @@ images:
 </p>
 
 <h2><span style="text-decoration: underline;"><strong>Approach</strong></span></h2>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp The objective is to predict whether a transaction is fradulent. In ML terms, this is a classification problem. Some common types of classification algorithms are:
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp The objective is to predict whether a transaction is fraudulent. In ML terms, this is a classification problem. Some common types of classification algorithms are:
 <ul>
 <li>Logistic Regression</li>
 <li>Naive Bayes</li>
@@ -105,10 +105,10 @@ images:
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp Let’s build the model with 15 features selected by RFE and test it.</p>
 <img src="images/creditcard_fraud/code11.PNG">
 <p>What is the confusion matrix indicating?</p>
-<p>We 83,070 observations which are 'Not fradulent' and are predicted as 'Not fradulent', </br>
+<p>We 83,070 observations which are 'Not fradulent' and are predicted as 'Not fraudulent', </br>
 2213 observations which are 'Not fraudulent' but are predicted as 'Fraudulent',</br>
 13 observations which are 'Fraudulent' and predicted as ‘Not fraudulent’,</br>
-147 observations which are 'Fraudulent' and predicted as 'Fradulent'. </br>Our aim is to improve the model so as to decrease the number of wrongly classified observations especially the fraudulent ones.</p>
+147 observations which are 'Fraudulent' and predicted as 'Fraudulent'. </br>Our aim is to improve the model so as to decrease the number of wrongly classified observations especially the fraudulent ones.</p>
 <p>We can improve the model by changing the ‘C’ value (the inverse of regularization strength) and the regularization method. To find the best 'C' value we will do a grid search using the GridSearchCV function. It will search among the all possible combinations of parameters given and calculates scores using validation data and outputs the best parameters. </p>
 <img src="images/creditcard_fraud/code12.PNG">
 <p>Using the grid search, we get C = 0.01 and “l2” as the best regularization method in this case. Let’s re-train the model using these parameters. </p>
@@ -120,4 +120,4 @@ images:
 <img src="images/creditcard_fraud/code15.PNG">
 <img src="images/creditcard_fraud/code16.PNG">
 <p>The recall and F-1 score are satisfactory. The ROC is also closer towards the top border indicating the model is effective.</br>
-Can think of any other ways to predict fradulent transactions? Build the model and let me know the recall value in the comments!</p>
+Can think of any other ways to predict fraudulent transactions? Build the model and let me know the recall value in the comments!</p>
