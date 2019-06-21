@@ -14,7 +14,7 @@ avatar: https://avatars2.githubusercontent.com/u/14161229?s=400&u=33ada545398a38
 #
 # Flags below are optional
 #
-
+remote_theme: daattali/beautiful-jekyll
 # Includes an icon in the footer for each username you enter
 footer-links:
   dribbble:
